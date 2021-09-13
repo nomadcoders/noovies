@@ -7,6 +7,7 @@
     "start": "react-native start"
   },
   "dependencies": {
+    "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.2",
     "expo": "~42.0.1",
     "expo-app-loading": "^1.1.2",
@@ -20,10 +21,10 @@
     "react-native": "~0.63.4",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-reanimated": "~2.2.0",
+    "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-unimodules": "~0.14.5",
-    "react-native-web": "~0.13.12",
-    "react-native-safe-area-context": "3.2.0"
+    "react-native-web": "~0.13.12"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
