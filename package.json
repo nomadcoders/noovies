@@ -13,6 +13,7 @@
     "expo": "~42.0.1",
     "expo-app-loading": "^1.1.2",
     "expo-asset": "~8.3.3",
+    "expo-blur": "~9.0.3",
     "expo-font": "~9.2.1",
     "expo-splash-screen": "~0.11.2",
     "expo-status-bar": "~1.0.4",
@@ -24,11 +25,11 @@
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
+    "react-native-swiper": "^1.6.0-rc.3",
     "react-native-unimodules": "~0.14.5",
     "react-native-web": "~0.13.12",
     "react-native-web-swiper": "^2.2.1",
-    "styled-components": "^5.3.1",
-    "expo-blur": "~9.0.3"
+    "styled-components": "^5.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
