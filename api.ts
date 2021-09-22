@@ -1,6 +1,8 @@
 const API_KEY = "10923b261ba94d897ac6b81148314a3f";
 const BASE_URL = "https://api.themoviedb.org/3";
 
+interface Movie {}
+
 const trending = () =>
   fetch(`${BASE_URL}/trending/movie/week?api_key=${API_KEY}`).then((res) =>
     res.json()
