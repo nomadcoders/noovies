@@ -2,7 +2,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { Dimensions, FlatList } from "react-native";
 import Swiper from "react-native-swiper";
-import { useQuery, useQueryClient } from "react-query";
+import { useInfiniteQuery, useQuery, useQueryClient } from "react-query";
 import styled from "styled-components/native";
 import { moviesApi } from "../api";
 import HList from "../components/HList";
@@ -34,7 +34,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
     ["movies", "nowPlaying"],
     moviesApi.nowPlaying
   );
-  const { isLoading: upcomingLoading, data: upcomingData } = useQuery(
+  const { isLoading: upcomingLoading, data: upcomingData } = useInfiniteQuery(
     ["movies", "upcoming"],
     moviesApi.upcoming
   );
@@ -42,17 +42,22 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
     ["movies", "trending"],
     moviesApi.trending
   );
+  console.log(upcomingData?.pages);
   const onRefresh = async () => {
     setRefreshing(true);
     await queryClient.refetchQueries(["movies"]);
     setRefreshing(false);
   };
   const loading = nowPlayingLoading || upcomingLoading || trendingLoading;
-
+  const loadMore = () => {
+    alert("load more!");
+  };
   return loading ? (
     <Loader />
   ) : upcomingData ? (
     <FlatList
+      onEndReached={loadMore}
+      onEndReachedThreshold={0.4}
       onRefresh={onRefresh}
       refreshing={refreshing}
       ListHeaderComponent={
@@ -88,7 +93,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
           <ComingSoonTitle>Coming soon</ComingSoonTitle>
         </>
       }
-      data={upcomingData.results}
+      data={upcomingData.pages.map((page) => page.results).flat()}
       keyExtractor={(item) => item.id + ""}
       ItemSeparatorComponent={HSeparator}
       renderItem={({ item }) => (
@@ -105,3 +110,13 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
 };
 
 export default Movies;
+
+/*{
+"pageParams": [undefined],
+"pages": [
+  {"dates": [Object], "page": 1, "results": [Array], "total_pages": 18, "total_results": 348}
+  {"dates": [Object], "page": 2, "results": [Array], "total_pages": 18, "total_results": 348}
+  {"dates": [Object], "page": 3, "results": [Array], "total_pages": 18, "total_results": 348}
+  {"dates": [Object], "page": 4, "results": [Array], "total_pages": 18, "total_results": 348}
+  ]
+}*/
