@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Dimensions, StyleSheet, Share, Platform } from "react-native";
 import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Movie, moviesApi, TV, tvApi } from "../api";
+import { Movie, MovieDetails, moviesApi, TV, tvApi, TVDetails } from "../api";
 import Poster from "../components/Poster";
 import { makeImgPath } from "../utils";
 import { BLACK_COLOR } from "../colors";
@@ -70,31 +70,34 @@ const Detail: React.FC<DetailScreenProps> = ({
   route: { params },
 }) => {
   const isMovie = "original_title" in params;
-  const { isLoading, data } = useQuery(
+  const { isLoading, data } = useQuery<MovieDetails | TVDetails>(
     [isMovie ? "movies" : "tv", params.id],
     isMovie ? moviesApi.detail : tvApi.detail
   );
   const shareMedia = async () => {
-    const isAndroid = Platform.OS === "android";
-    const homepage = isMovie
-      ? `https://www.imdb.com/title/${data.imdb_id}/`
-      : data.homepage;
-    if (isAndroid) {
-      await Share.share({
-        message: `${params.overview}\nCheck it out: ${homepage}`,
-        title:
-          "original_title" in params
-            ? params.original_title
-            : params.original_name,
-      });
-    } else {
-      await Share.share({
-        url: homepage,
-        title:
-          "original_title" in params
-            ? params.original_title
-            : params.original_name,
-      });
+    if (data) {
+      const isAndroid = Platform.OS === "android";
+      const homepage =
+        isMovie && "imdb_id" in data
+          ? `https://www.imdb.com/title/${data.imdb_id}/`
+          : data.homepage;
+      if (isAndroid) {
+        await Share.share({
+          message: `${params.overview}\nCheck it out: ${homepage}`,
+          title:
+            "original_title" in params
+              ? params.original_title
+              : params.original_name,
+        });
+      } else {
+        await Share.share({
+          url: homepage,
+          title:
+            "original_title" in params
+              ? params.original_title
+              : params.original_name,
+        });
+      }
     }
   };
   const ShareButton = () => (
