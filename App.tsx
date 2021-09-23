@@ -12,9 +12,15 @@ import { darkTheme, lightTheme } from "./styled";
 
 const queryClient = new QueryClient();
 
-const loadFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
+const loadFonts = (
+  fonts:
+    | string[]
+    | {
+        [fontFamily: string]: Font.FontSource;
+      }[]
+) => fonts.map((font) => Font.loadAsync(font));
 
-const loadImages = (images) =>
+const loadImages = (images: string[] | number[] | string[][] | number[][]) =>
   images.map((image) => {
     if (typeof image === "string") {
       return Image.prefetch(image);

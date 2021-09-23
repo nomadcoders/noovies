@@ -2,7 +2,7 @@
   "main": "index.js",
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "react-native run-ios --simulator='iPhone 12 Pro Max'",
     "web": "expo start --web",
     "start": "react-native start"
   },
