@@ -31,7 +31,8 @@
     "react-native-web-swiper": "^2.2.1",
     "react-query": "^3.24.3",
     "styled-components": "^5.3.1",
-    "expo-linear-gradient": "~9.2.0"
+    "expo-linear-gradient": "~9.2.0",
+    "expo-web-browser": "~9.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
